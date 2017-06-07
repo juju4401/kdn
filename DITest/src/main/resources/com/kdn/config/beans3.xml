@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 기본 생성자로 객체를 생성한 후
+		 setter 메서드로 injection  
+	
+		-<bean>태그의 바디에 <property> 태그를 설정
+		-<property>는 setter메서드를 호출
+		  name  : 속성명
+		  value : primitive type과 String의 값 설정
+		  ref   : <bean>태그로 미리 등록한 객체의 id
+	-->
+	<bean id="title" class="java.lang.String" >
+		<constructor-arg value="처음하는 spring"/>
+	</bean>
+	
+	<bean id="board" class="com.kdn.model.domain.Board">
+		<property name="id"   	 value="kdn"/>
+		<property name="title"   ref="title"/>
+		<property name="regdate" value="2017-05-31"/>
+	</bean>
+	
+	<bean id="fileBean1" class="com.kdn.model.domain.FileBean">
+		<constructor-arg value="a.txt"/>
+		<constructor-arg value="a.txt"/>
+	</bean>
+	<bean id="fileBean2" class="com.kdn.model.domain.FileBean">
+		<constructor-arg value="b.txt"/>
+		<constructor-arg value="b.txt"/>
+	</bean>
+	
+	<!-- Collection, Map, Properties, array Injection  -->
+	
+	<bean id="board2" class="com.kdn.model.domain.Board">
+		<property name="id"   	 value="kdn"/>
+		<property name="title"   ref="title"/>
+		<property name="no"   	 value="1"/>
+		<property name="regdate" value="2017-05-31"/>
+		<property name="files"  >
+			<list>
+				<ref bean="fileBean1"/>
+				<ref bean="fileBean2"/>
+			</list>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 기본 생성자로 객체 생성  
+		id : container에 유일한 값으로 설정
+		class : 객체를 생성할  type설정(추상, interface안됨)
+		scope : 객체의 공유(사용 범위 설정)
+			singleton : container가 구동될 때 한번 생성
+						어디서나 같은 객체를 공유
+						scope생략하면 기본적으로 singleton
+						-공유정보,코드들만 저장.,
+			prototype : container가 구동될 때 생성하지 않고
+						getBean(~) 할 때 마다 객체를 생성
+			request : web에서 getBean(~)할 때 request범위 내에서 공유
+			session : web에서 getBean(~)할 때 session범위 내에서 공유
+			global-session : web에서 getBean(~)할 때 global session범위 내에서 공유 	
+	-->
+	
+	<!-- <bean id="board" scope="prototype" class="com.kdn.model.domain.Board"></bean>
+	생성되는 시점 달라짐(hashCode다름) -->
+	
+	<!-- lazy-init:
+			true : singleton으로 설정된 객체를 컨테이너 구동시 생성하지 않고 처음 getBean(~)호출할 때 생성 
+		
+		 init : 객체 생성 후 호출할 메서드를 성정. 초기화를 위한 메서드 호출
+		 destroy : 객체 소멸 전 호출할 메서드 설정. 사용한 자원이 있다면 반납하는 기능을 위해
+	-->
+	
+	<bean id="board" scope="singleton" init-method="test_init" destroy-method="test_destroy" 
+		lazy-init="true" class="com.kdn.model.domain.Board"></bean>
+	
+	
+	<bean id="board2" class="com.kdn.model.domain.Board"></bean>
+</beans>
